@@ -5,11 +5,23 @@ package DataStructure.Tree;
 public class BinaryTreeNode<T> {
 
 	public T data;
+	int value;
 	public BinaryTreeNode<T> left;
 	public BinaryTreeNode<T> right;
 	
-	public BinaryTreeNode() {
+	public BinaryTreeNode(int value ,T data) {
 		// TODO Auto-generated constructor stub
+		this.value = value;
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
+	
+	public BinaryTreeNode(int value) {
+        this.value = value;
+		this.data = null;
+		this.left = null;
+		this.right = null;
 	}
 
 }
