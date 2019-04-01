@@ -13,7 +13,7 @@ public class BucketSort {
 		
 		System.out.println("Before: " + Arrays.toString(data));
 		
-		bucket = new int[data.length + 1];
+		bucket = new int[maxVal + 1];
 		
 		for(int i: bucket) {
 			i = 0;
@@ -42,6 +42,10 @@ public class BucketSort {
 		
 		bucketSort.sort(data, maxVal);
 		
+		int maxVal2 = 90;
+		int[] data2 = {5,3,0,2, 90,4,1,0,7,5, 89,2,3,1,4,6};
+		
+		bucketSort.sort(data2, maxVal2);
 	}
 	
 }

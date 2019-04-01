@@ -47,7 +47,7 @@ public class Quiz13_7and13_8 {
 		Stream<Integer> populations =  countries.stream().map(
 				country -> country.continent.equalsIgnoreCase(continent)? country.population : 0
 		);
-		
+	
 		return populations.reduce(0, (a,b) -> a + b);
 	}
 	

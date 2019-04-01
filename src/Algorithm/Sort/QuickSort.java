@@ -16,15 +16,15 @@ public class QuickSort {
 
 		if (data.length >= 10) {
 
-			int index = partition(data, left, right); // make element on left less than pivot and on right more than
+			int pivot = partition(data, left, right); // make element on left less than pivot and on right more than
 														// pivot
 
-			if (left < index - 1) { // sort left side of pivot index
-				quickSort(data, left, index - 1);
+			if (left < pivot - 1) { // sort left side of pivot index
+				quickSort(data, left, pivot - 1);
 			}
 
-			if (index < right) { // sort right side of pivot index
-				quickSort(data, index, right);
+			if (pivot < right) { // sort right side of pivot index
+				quickSort(data, pivot, right);
 			}
 
 		} else {
@@ -39,11 +39,11 @@ public class QuickSort {
 		int pivot = data[(left + right) / 2];
 
 		while (left <= right) {
-			// Check element on left that should be on right
+			// move index to element on left that should be on right
 			while (data[left] < pivot)
 				left++;
 
-			// Check element on right that should be on left
+			// move index to element on right that should be on left
 			while (data[right] > pivot)
 				right--;
 

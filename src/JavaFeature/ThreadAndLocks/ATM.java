@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ATM {
 	private static ATM ATMsingleton;
     private Lock lock;
-    private int balance = 1000;
+    private int balance = 1000; // importance resource !!
     
 	public ATM() {
 		lock = new ReentrantLock();

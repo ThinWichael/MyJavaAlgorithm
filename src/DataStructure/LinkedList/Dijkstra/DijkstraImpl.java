@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 // https://www.baeldung.com/java-dijkstra
@@ -15,52 +16,57 @@ public class DijkstraImpl {
 	}
 
 	public static Graph calculateShortestPathFromSource(Graph graph, Node source) {
-		source.setDistance(0);
+		source.setDistance(0); // startNode to startNode is 0
 
-		Set<Node> settledNodes = new HashSet<>();
-		Set<Node> unsettledNodes = new HashSet<>();
+		Set<Node> closeSet = new HashSet<>(); // the group that shortest path are fixed
+		PriorityQueue<Node> openSet = new PriorityQueue<Node>((a,b) -> ( a.getDistance() - b.getDistance())); // always get the small one 
 
-		unsettledNodes.add(source);
+		openSet.add(source);
 
-		while (unsettledNodes.size() != 0) {
-			Node currentNode = getLowestDistanceNode(unsettledNodes);
-			unsettledNodes.remove(currentNode);
-			for (Entry<Node, Integer> adjacencyPair : currentNode.getAdjacentNodes().entrySet()) {
-				Node adjacentNode = adjacencyPair.getKey();
-				Integer edgeWeight = adjacencyPair.getValue();
-				if (!settledNodes.contains(adjacentNode)) {
-					calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
-					unsettledNodes.add(adjacentNode);
+		while (openSet.size() != 0) {
+			Node curr = openSet.poll();
+			
+			// loop for every edge
+			for (Entry<Node, Integer> edge : curr.getAdjacentNodes().entrySet()) {
+				Node next = edge.getKey();
+				Integer edgeWeight = edge.getValue();
+				
+				if (!closeSet.contains(next)) {
+					calculateMinimumDistance(next, edgeWeight, curr);
+					openSet.add(next);
 				}
 			}
-			settledNodes.add(currentNode);
+			closeSet.add(curr); // finish one point
 		}
 		return graph;
 	}
 
-	private static Node getLowestDistanceNode(Set<Node> unsettledNodes) {
-		Node lowestDistanceNode = null;
-		int lowestDistance = Integer.MAX_VALUE;
-		for (Node node : unsettledNodes) {
-			int nodeDistance = node.getDistance();
-			if (nodeDistance < lowestDistance) {
-				lowestDistance = nodeDistance;
-				lowestDistanceNode = node;
-			}
-		}
-		return lowestDistanceNode;
-	}
-
-	private static void calculateMinimumDistance(Node evaluationNode, Integer edgeWeigh, Node sourceNode) {
-		Integer sourceDistance = sourceNode.getDistance();
-		if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
-			evaluationNode.setDistance(sourceDistance + edgeWeigh);
-			LinkedList<Node> shortestPath = new LinkedList<>(sourceNode.getShortestPath());
-			shortestPath.add(sourceNode);
-			evaluationNode.setShortestPath(shortestPath);
+	private static void calculateMinimumDistance(Node target, Integer edgeWeigh, Node source) {
+		Integer sDist = source.getDistance(); 
+		if (sDist + edgeWeigh < target.getDistance()) { // default of target distance is Integer.MaxValue
+			// update distance
+			target.setDistance(sDist + edgeWeigh);
+			
+			LinkedList<Node> shortestPath = new LinkedList<>(source.getShortestPath());
+			shortestPath.add(source);
+			target.setShortestPath(shortestPath); // memory the footprint
 		}
 	}
 
+	// replace by piorityQueue !
+//	private static Node getLowestDistanceNode(Set<Node> openSet) {
+//		Node minDistNode = null;
+//		int minDist = Integer.MAX_VALUE;
+//		for (Node node : openSet) {
+//			int currDist = node.getDistance();
+//			if (currDist < minDist) {
+//				minDist = currDist;
+//				minDistNode = node;
+//			}
+//		}
+//		return minDistNode;
+//	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -71,11 +77,11 @@ public class DijkstraImpl {
 		Node nodeE = new Node("E");
 		Node nodeF = new Node("F");
 		 
-		nodeA.addDestination(nodeB, 10);
-		nodeA.addDestination(nodeC, 15);
-		 
-		nodeB.addDestination(nodeD, 12);
-		nodeB.addDestination(nodeF, 15);
+		nodeA.addDestination(nodeB, 10); // A--B---D
+		nodeA.addDestination(nodeC, 15); //  \  \ / \
+		                                 //   C  F  /
+		nodeB.addDestination(nodeD, 12); //    \ / /
+		nodeB.addDestination(nodeF, 15); //     E_/
 		 
 		nodeC.addDestination(nodeE, 10);
 		 
@@ -109,11 +115,11 @@ public class DijkstraImpl {
 	static void printResult(Graph graph) {
 		for(Node node : graph.nodes) {
 			List<Node> list = node.getShortestPath();
-			StringBuilder tempStr = new StringBuilder();
-			for(Node tempNode: list) {
-				tempStr.append(tempNode.getName() + "---");
+			StringBuilder sb = new StringBuilder();
+			for(Node e: list) {
+				sb.append(e.getName() + "---");
 			}
-			System.out.println("node " + node.getName() +" ShortestPath: " + tempStr);
+			System.out.println("To node " + node.getName() +" ShortestPath: " + sb);
 		} 
 		
 	}

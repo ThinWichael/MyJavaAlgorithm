@@ -4,7 +4,7 @@ public class MyObject {
 
 	/*Two different style*/
 	
-	public synchronized void foo(String name) {
+	public synchronized void foo(String name) { /* A synchronized method */
 
 		try {
 			System.out.println("thread " + name + ".foo() start");

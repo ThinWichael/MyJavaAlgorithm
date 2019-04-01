@@ -8,14 +8,14 @@ public class MyThreadClass extends Thread {
     	this.name = name;
     	this.myObject = obj;
     }
-    
+    @Override
     public void run() {
     	myObject.foo(this.name);
     }
     
 	public static void main(String[] args) {
 	  /* Different reference (obj1 / obj2) by extending thread 
-	   * - both threads can call MyObject's synchronized method
+	   * - "both" threads can call MyObject's synchronized method at same time
 	   * */
       MyObject obj1 = new MyObject();
       MyObject obj2 = new MyObject();

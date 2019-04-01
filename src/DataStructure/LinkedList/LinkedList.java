@@ -2,7 +2,7 @@ package DataStructure.LinkedList;
 
 //°Ñ·Ó http://emn178.pixnet.net/blog/post/93557502-%E9%80%A3%E7%B5%90%E4%B8%B2%E5%88%97%28linked-list%29
 
-abstract class LinkedList<T> {
+abstract class LinkedList<T> { // can be use as a Queue
 
     public int count;
     public Node<T> first;

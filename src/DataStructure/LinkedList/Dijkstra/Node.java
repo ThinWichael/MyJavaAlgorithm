@@ -9,9 +9,9 @@ public class Node {
 
 	private String name;
     
-    private List<Node> shortestPath = new LinkedList<>();
+    private List<Node> shortestPath = new LinkedList<>(); // memory the result
      
-    private Integer distance = Integer.MAX_VALUE;
+    private Integer distance = Integer.MAX_VALUE; //record the shortest path value from source node accumulated to this Node
      
     Map<Node, Integer> adjacentNodes = new HashMap<>();
  

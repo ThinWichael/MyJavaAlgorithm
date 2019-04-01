@@ -18,14 +18,14 @@ public class RadixSort {
 	/* main function*/
 	public void radixSort(int[] data) {
 		
-		int maxVal = getMaxVal(data, data.length);
+		int maxVal = getMaxVal(data);
 		
 		// digit = 1, 10, 100 ...
 		for(int digit = 1; maxVal/digit > 0; digit *= 10)
 			countSort(data, data.length, digit);
 	}
 	
-	private int getMaxVal(int[] data, int n) {
+	private int getMaxVal(int[] data) {
 		int maxVal = data[0];
 		for(int ele: data) {
 			if(ele > maxVal)
@@ -52,7 +52,7 @@ public class RadixSort {
 		}
 		System.out.println("After count:" + Arrays.toString(count) ); // actual position of output array
 		
-		for(i = n-1 ; i >= 0; i--) {
+		for(i = n-1 ; i >= 0; i--) { // if i goes form "tail" then the result order will be stabilized, which means if two equal number,5 and 5, will be sorted according to their original position
 			int mod = (data[i]/digit) % 10;
 			output[ count[mod] - 1 ] = data[i];
 			count[ mod ]--; 

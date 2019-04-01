@@ -6,11 +6,27 @@ import java.util.Queue;
 public class BinaryTree<T> {
 
 	BinaryTreeNode<T> root;
-	
+	int i = 0;
 	public BinaryTree() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public BinaryTree(int[] A) {
+		i = 0;
+        root = preOrderBuild(A , Integer.MAX_VALUE);
+	}
+	// pre-order build: easy to imbalance --> check out for-loop "add" !
+	private BinaryTreeNode<T> preOrderBuild(int[] A , int upbound) {
+		if( i == A.length || A[i] > upbound) return null;
+		
+		BinaryTreeNode<T> node = new BinaryTreeNode<>(A[i]);
+		i++;
+		
+		node.left = preOrderBuild(A, node.value);
+		node.right = preOrderBuild(A, upbound);
+		return node;
+	}
+	
 	void add(int value, T data) {
 		root = addRecursively(root, value, data);
 	}
@@ -67,26 +83,45 @@ public class BinaryTree<T> {
 		}
 	}
 
+    void visiteBylevel(BinaryTreeNode node, int level) {
+		
+		if(node == null )
+			return;
+		
+		if(level == 1) { // reach the level
+			visit(node);
+		} else if(level > 1) { // go to that level
+			visiteBylevel(node.left, level - 1);
+			visiteBylevel(node.right, level - 1);
+		}
+		
+	}
+	
 	/* level-by-level Traversal ¶¥§Ç¨«³X - Iteratively */
-	void levelTraversal2(BinaryTreeNode node) {
+	static void levelTraversal2(BinaryTreeNode node) {
 		
 		/* Use Queue */
 		Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
 		queue.add(node);
+		System.out.println("==level by level==");
 		
 		while(!queue.isEmpty()) {
 			BinaryTreeNode tempNode = queue.poll();
-			visit(tempNode);
+			if(tempNode != null) visit(tempNode);
+			else {
+				System.out.println("null");
+				continue;
+			}
 			
 			/* load left child to Queue */
 			if(tempNode.left != null) {
 				queue.add(tempNode.left);
-			}
+			} else queue.add(null);
 			
 			/* load right child to Queue */
 			if(tempNode.right != null) {
 				queue.add(tempNode.right);
-			}
+			} else queue.add(null);
 			
 		}
 	}
@@ -109,23 +144,9 @@ public class BinaryTree<T> {
 		else
 			return (rheight + 1);
 	}
-
-	void visiteBylevel(BinaryTreeNode node, int level) {
-		
-		if(node == null )
-			return;
-		
-		if(level == 1) { // reach the level
-			visit(node);
-		} else if(level > 1) { // go to that level
-			visiteBylevel(node.left, level - 1);
-			visiteBylevel(node.right, level - 1);
-		}
-		
-		}
 	
-	void visit(BinaryTreeNode node) {
-		System.out.println(node.data);
+	static void visit(BinaryTreeNode node) {
+		System.out.println("data :" + node.data + " value: " + node.value);
 	}
 
 	int countPathsWithSumFromNode(BinaryTreeNode node, int targetSum, int currentSum) {
@@ -162,9 +183,21 @@ public class BinaryTree<T> {
 	public static void main(String[] args) { 
 		BinaryTree<Integer> bt = new BinaryTree<Integer>();
 		BinaryTree testBT = createBinaryTree();
-		int answer = bt.countPathsWithSumFromNode(testBT.root, 13, 0);
+//		int answer = bt.countPathsWithSumFromNode(testBT.root, 13, 0);
 		
+//		int[] a = {8,5,1,7,10,12};
+//		BinaryTree bt2 = new BinaryTree(a);
+//		levelTraversal2(bt2.root);
 		
+		int[] test = {7, 1, 8, 9, 2};
+		BinaryTree<Integer> bt3 = new BinaryTree<Integer>(test);
+		BinaryTree<Integer> bt4 = new BinaryTree<Integer>();
+		for(int e: test)
+			bt4.add(e, null);
+//		bt3.preOrderTraversal(bt3.root);
+		levelTraversal2(bt3.root);
+		levelTraversal2(bt4.root);
+//		System.out.print(b);
 	}
 	
 //	int getNext(int n) {

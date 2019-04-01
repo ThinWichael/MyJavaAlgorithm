@@ -1,6 +1,5 @@
 package DataStructure.Queue;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.NoSuchElementException;
 
 public class LinkedListQueue<T> implements Queue {
@@ -26,9 +25,9 @@ public class LinkedListQueue<T> implements Queue {
 	}
 
 	@Override
-	public Object remove() {
-		if(first == null) 
-			throw new NoSuchElementException();
+	public Object poll() { 
+		if(first == null) throw new NoSuchElementException();
+		
 		T data = first.data;
 		first = first.next;
 		if ( first == null ) {
