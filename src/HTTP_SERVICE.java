@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import com.google.gson.*;
+//import com.google.gson.*;
 
 public class HTTP_SERVICE {
 
@@ -46,9 +46,9 @@ public class HTTP_SERVICE {
 
 				String jsonRes = buffer.toString();
 
-				Gson gson = new Gson();
-
-				linkedMap = gson.fromJson(jsonRes, LinkedHashMap.class);
+//				Gson gson = new Gson();
+//
+//				linkedMap = gson.fromJson(jsonRes, LinkedHashMap.class);
 
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -93,9 +93,9 @@ public class HTTP_SERVICE {
 		// String subStr = null;
 		//
 		// try {
-		// System.out.println("½Ð¿é¤J¦r¦ê¡G");
+		// System.out.println("ï¿½Ð¿ï¿½Jï¿½rï¿½ï¿½G");
 		// subStr = in.nextLine();
-		// System.out.println("±z¿é¤Jªº¦r¦ê¡G" + subStr);
+		// System.out.println("ï¿½zï¿½ï¿½Jï¿½ï¿½ï¿½rï¿½ï¿½G" + subStr);
 		// } catch (Exception e) {
 		// e.printStackTrace();
 		// subStr = null;

@@ -55,6 +55,7 @@ class Result2 {
         	// each subDictionary do recursively finding the string chain and save it
     		
     		// goRecrusivelyCheck()
+			return 1;
         }
     	
     	public void goRecrusivelyCheck (Integer index){
@@ -66,7 +67,7 @@ class Result2 {
     			for(String str_: dictionary){
     				if(str_.length() == str.length() - 1 && 
     						result.equalsIgnoreCase(str_)){
-    					checkRemoveLetter()
+//    					checkRemoveLetter();
     				}
     			}
     		}
@@ -81,7 +82,7 @@ class Result2 {
         	
         	Collections.sort(list); // ascending
         	
-        	// ³sÄò¼Æ¦r¦ê [10,8,9,4,...,3] ¥þ³¡¼Æ¦r¥[°_¨Ó¤£¶W¹L 60
+        	// ï¿½sï¿½ï¿½Æ¦rï¿½ï¿½ [10,8,9,4,...,3] ï¿½ï¿½ï¿½ï¿½ï¿½Æ¦rï¿½[ï¿½_ï¿½Ó¤ï¿½ï¿½Wï¿½L 60
         	continuousNumberChain = new ArrayList<Integer>();
         	
         	Integer lastNumber = null;
